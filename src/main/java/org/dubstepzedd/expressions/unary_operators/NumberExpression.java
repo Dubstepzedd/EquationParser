@@ -1,17 +1,16 @@
-package org.dubstepzedd.expressions;
+package org.dubstepzedd.expressions.unary_operators;
 
 import org.dubstepzedd.context.InterpreterContext;
 
-public class NumberExpression implements AbstractExpression {
 
-    private final float number;
+public class NumberExpression extends UnaryOperator {
 
     public NumberExpression(float number) {
-        this.number = number;
+        super(number);
     }
 
     @Override
     public float interpret(InterpreterContext context) {
-        return number;
+        return this.num;
     }
 }

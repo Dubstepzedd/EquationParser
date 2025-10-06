@@ -1,15 +1,16 @@
 package org.dubstepzedd;
 
 import org.dubstepzedd.expressions.AbstractExpression;
-import org.dubstepzedd.expressions.NumberExpression;
+import org.dubstepzedd.expressions.unary_operators.NumberExpression;
 import org.dubstepzedd.expressions.binary_operators.*;
+import org.dubstepzedd.tokenization.Tokenizer;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ExpressionParser {
-    private int pos;
-    String[] tokens;
 
+    private Tokenizer tokenizer;
     private static final Map<String, OperatorInfo> OPERATORS = new HashMap<>();
 
     static {
@@ -35,23 +36,21 @@ public class ExpressionParser {
     }
 
     public AbstractExpression parse(final String input) {
-        pos = 0;
-        String cleanedInput = input.replaceAll("\\s+", "");
-        tokens = tokenize(cleanedInput);
+        this.tokenizer = new Tokenizer(input);
         return parseExpression(0);
     }
 
     private AbstractExpression parseExpression(int minPrecedence) {
         AbstractExpression left = parsePrimary();
 
-        while (pos < tokens.length && OPERATORS.containsKey(tokens[pos])) {
-            OperatorInfo opInfo = OPERATORS.get(tokens[pos]);
+        while (tokenizer.hasTokens() && OPERATORS.containsKey(tokenizer.peek())) {
+            OperatorInfo opInfo = OPERATORS.get(tokenizer.peek());
 
             if (opInfo.getPrecedence() < minPrecedence) {
                 break;
             }
 
-            consume(); // consume operator
+            this.tokenizer.consume(); // consume operator
             AbstractExpression right = parseExpression(opInfo.getPrecedence() + 1);
 
             // Create operator using reflection
@@ -62,13 +61,13 @@ public class ExpressionParser {
     }
 
     private AbstractExpression parsePrimary() {
-        if (tokens[pos].equals("(")) {
-            consume();
+        if (tokenizer.peekEqual("(")) {
+            this.tokenizer.consume();
             AbstractExpression inner = parseExpression(0);
-            if (!tokens[pos].equals(")")) {
+            if (!tokenizer.peekEqual(")")) {
                 throw new IllegalStateException("Expected ')'");
             }
-            consume();
+            this.tokenizer.consume();
             return inner;
         }
 
@@ -76,45 +75,7 @@ public class ExpressionParser {
     }
 
     private AbstractExpression parseNumber() {
-        float num = Float.parseFloat(consume());
+        float num = Float.parseFloat(tokenizer.consume());
         return new NumberExpression(num);
-    }
-
-    private String consume() {
-        if(pos >= tokens.length) {
-            throw new IllegalStateException("Unexpected end of expression");
-        }
-        return tokens[pos++];
-    }
-
-    private String[] tokenize(String input) {
-        List<String> result = new ArrayList<>();
-        StringBuilder currentToken = new StringBuilder();
-
-        for (char c : input.toCharArray()) {
-            if (isSpecialChar(c)) {
-                if (currentToken.length() > 0) {
-                    result.add(currentToken.toString());
-                    currentToken.setLength(0);
-                }
-                result.add(String.valueOf(c));
-            }
-            else if (Character.isDigit(c) || c == '.') {
-                currentToken.append(c);
-            }
-            else {
-                throw new IllegalArgumentException("Invalid character: " + c);
-            }
-        }
-
-        if (currentToken.length() > 0) {
-            result.add(currentToken.toString());
-        }
-
-        return result.toArray(String[]::new);
-    }
-
-    private boolean isSpecialChar(char c) {
-        return OPERATORS.containsKey(String.valueOf(c)) || c == '(' || c == ')';
     }
 }

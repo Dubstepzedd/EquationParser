@@ -1,7 +1,8 @@
-package org.dubstepzedd.expressions.binary_operators;
+package org.dubstepzedd.expressions.binary_operators.operators;
 
 import org.dubstepzedd.context.InterpreterContext;
 import org.dubstepzedd.expressions.AbstractExpression;
+import org.dubstepzedd.expressions.binary_operators.BinaryExpression;
 
 public class AdditionOperator extends BinaryExpression {
 

@@ -1,12 +1,11 @@
 package org.dubstepzedd.expressions.binary_operators;
 
-
 import org.dubstepzedd.expressions.AbstractExpression;
 
 public abstract class BinaryExpression implements AbstractExpression {
 
-    final protected AbstractExpression left;
-    final protected AbstractExpression right;
+    protected final AbstractExpression left;
+    protected final AbstractExpression right;
 
     public BinaryExpression(final AbstractExpression left, final AbstractExpression right) {
         this.left = left;

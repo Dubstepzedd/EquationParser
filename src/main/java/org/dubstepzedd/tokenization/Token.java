@@ -1,12 +1,21 @@
 package org.dubstepzedd.tokenization;
 
 public class Token {
-    final String type;
+    final TokenType type;
     final String value;
-    Token(String type, String value) {
+    public Token(String value, TokenType type) {
         this.type = type;
         this.value = value;
     }
+
+    public String getValue() {
+        return value;
+    }
+
+    public TokenType getType() {
+        return type;
+    }
+
     public String toString() { return type + " : " + value; }
 
 }

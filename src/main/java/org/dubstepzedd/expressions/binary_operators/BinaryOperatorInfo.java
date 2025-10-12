@@ -2,11 +2,11 @@ package org.dubstepzedd.expressions.binary_operators;
 
 import org.dubstepzedd.expressions.AbstractExpression;
 
-public class OperatorInfo {
-    final int precedence;
-    final Class<? extends BinaryExpression> operatorClass;
+public class BinaryOperatorInfo {
+    private final int precedence;
+    private final Class<? extends BinaryExpression> operatorClass;
 
-    public OperatorInfo(int precedence, Class<? extends BinaryExpression> operatorClass) {
+    public BinaryOperatorInfo(int precedence, Class<? extends BinaryExpression> operatorClass) {
         this.precedence = precedence;
         this.operatorClass = operatorClass;
     }

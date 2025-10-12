@@ -1,6 +1,8 @@
 package org.dubstepzedd.tokenization;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -23,19 +25,20 @@ public class Tokenizer {
         this.tokens = tokenize(str);
         this.pos = 0;
     }
-    public String consume() {
+    public Token consume() {
         if(pos >= tokens.length) {
             throw new IllegalStateException("Unexpected end of expression");
         }
-        return tokens[pos++].value;
+        return tokens[pos++];
     }
+
 
     public boolean peekEqual(final String str) {
         return tokens[pos].value.equals(str);
     }
 
-    public String peek() {
-        return tokens[pos].value;
+    public Token peek() {
+        return tokens[pos];
     }
 
     public boolean hasTokens() {
@@ -50,7 +53,7 @@ public class Tokenizer {
         while (matcher.find()) {
             for (TokenType t : TokenType.values()) {
                 if (matcher.group(t.name()) != null) {
-                    tokens.add(new Token(t.name(), matcher.group()));
+                    tokens.add(new Token(matcher.group(), t));
                     break; // stop checking once we found the match
                 }
             }

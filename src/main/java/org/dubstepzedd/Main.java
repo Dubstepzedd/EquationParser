@@ -1,15 +1,15 @@
 package org.dubstepzedd;
 
-import org.dubstepzedd.tokenization.Tokenizer;
+import org.dubstepzedd.context.InterpreterContext;
+import org.dubstepzedd.expressions.AbstractExpression;
 
 public class Main {
     public static void main(String[] args) {
-        //ExpressionParser parser = new ExpressionParser();
-        //AbstractExpression expr = parser.parse("10 + 5*7");
-        //System.out.println(expr.interpret(null));
-
-        Tokenizer tokenizer = new Tokenizer("sin(5)*y-10/(5-1)");
-        System.out.println(tokenizer);
+        InterpreterContext interpreterContext = new InterpreterContext();
+        interpreterContext.setIdentifier("PI", (float) Math.PI);
+        ExpressionParser parser = new ExpressionParser();
+        AbstractExpression expr = parser.parse("sin(PI/2)*2 + cos(1-1) + 5*7");
+        System.out.println(expr.interpret(interpreterContext));
 
     }
 }

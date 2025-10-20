@@ -1,4 +1,4 @@
-package org.dubstepzedd.expressions.unary_operators.operators;
+package org.dubstepzedd.expressions.unary_operators.implementations;
 
 import org.dubstepzedd.context.InterpreterContext;
 import org.dubstepzedd.expressions.AbstractExpression;

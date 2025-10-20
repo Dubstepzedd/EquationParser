@@ -1,28 +1,26 @@
-package org.dubstepzedd.expressions.binary_operators.operators;
+package org.dubstepzedd.expressions.binary_operators.implementations;
 
 import org.dubstepzedd.context.InterpreterContext;
 import org.dubstepzedd.expressions.AbstractExpression;
 import org.dubstepzedd.expressions.binary_operators.BinaryExpression;
 
-public class SubtractionOperator extends BinaryExpression {
-
-
-    public SubtractionOperator(AbstractExpression left, AbstractExpression right) {
+public class DivisionOperator extends BinaryExpression {
+    public DivisionOperator(AbstractExpression left, AbstractExpression right) {
         super(left, right);
     }
 
     @Override
     public String getSymbol() {
-        return "-";
+        return "/";
     }
 
     @Override
     public int getPrecedence() {
-        return 1;
+        return 2;
     }
 
     @Override
     public float interpret(InterpreterContext context) {
-        return left.interpret(context) - right.interpret(context);
+        return left.interpret(context) / right.interpret(context);
     }
 }

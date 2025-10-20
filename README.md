@@ -78,39 +78,6 @@ The project uses an operator info pattern where each operator is defined by:
 - **BinaryOperatorInfo**: Defines binary operators with precedence and associativity
 - **UnaryOperatorInfo**: Defines unary operators (functions)
 
-## Project Structure
-
-```text
-org.dubstepzedd/
-├── Main.java
-├── ExpressionParser.java
-├── context/
-│   └── InterpreterContext.java
-├── expressions/
-│   ├── AbstractExpression.java
-│   ├── IdentifierExpression.java
-│   ├── NumberExpression.java
-│   ├── BinaryExpression.java
-│   ├── UnaryExpression.java
-│   ├── binary_operators/
-│   │   ├── BinaryOperatorInfo.java
-│   │   └── implementations/
-│   │       ├── AdditionOperator.java
-│   │       ├── SubtractionOperator.java
-│   │       ├── MultiplicationOperator.java
-│   │       ├── DivisionOperator.java
-│   │       └── ModuloOperator.java
-│   └── unary_operators/
-│       ├── UnaryOperatorInfo.java
-│       └── implementations/
-│           ├── SinusOperator.java
-│           └── CosinesOperator.java
-└── tokenization/
-    ├── Token.java
-    ├── TokenType.java
-    └── Tokenizer.java
-```
-
 ## License
 
 This project is available as open source under the terms of the [MIT License](LICENSE).
